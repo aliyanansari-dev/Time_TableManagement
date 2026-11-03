@@ -1,0 +1,17 @@
+{
+  "name": "gct-cit-academic-platform",
+  "version": "3.0.0",
+  "description": "Enterprise Academic Operations Platform - GCT Bhakkar DAE CIT Department",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node tests/conflictEngine.test.js && node tests/schedulingService.test.js && node tests/auth.test.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.3.1"
+  }
+}
