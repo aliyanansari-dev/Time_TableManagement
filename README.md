@@ -1,109 +1,65 @@
-# DAE CIT Time‑Table Management Platform
+# DAE CIT Academic Operations Platform — React Application
 
-## Overview
-A full‑stack Next.js 14 + TypeScript monorepo for the **Government College of Technology, Bhakkar – CIT Afternoon Shift** timetable system.
+Enterprise Academic Operations Platform for the **Department of Computer Information Technology (CIT)** at **Government College of Technology (GCT), Bhakkar**.
 
-- Secure student/HOD login (JWT + bcrypt)
-- Shift‑aware schedule (regular days vs. Friday)
-- Double‑lecture merged blocks with `×2` badge
-- Live‑class banner, dark mode, PWA, PDF/Excel export
-- Faculty workload, lab usage, analytics, notices
-
-## Tech Stack
-- **Frontend**: Next.js 14 (App Router) + TypeScript, Tailwind CSS, shadcn/ui, Radix UI, Zustand, TanStack Query, Framer Motion, Lucide React, Sonner
-- **Backend**: Next.js API routes (Node) with Mongoose ODM, MongoDB (`gct_bhakkar_cit`)
-- **Auth**: JWT, bcrypt
-- **Extras**: PWA, Cmd+K palette, live clock, accessibility (WCAG AA), SEO
-
-## Repository Layout
-```
-DAE‑CIT‑Timetable/
-├─ backend/               # API routes and Mongoose models
-├─ frontend/              # Next.js app (src/…)
-├─ scripts/               # Seed script and utilities
-├─ docs/                  # Architecture & design docs
-├─ .env.example           # Environment variable template
-├─ pnpm-workspace.yaml
-├─ package.json
-└─ README.md               # (this file)
-```
-
-## Getting Started
-1. **Prerequisites**
-   - Node 20+ (`nvm` recommended)
-   - pnpm (`npm i -g pnpm`)
-   - MongoDB running locally (`mongodb://localhost:27017/gct_bhakkar_cit`)
-2. **Install**
-   ```bash
-   pnpm install
-   ```
-3. **Configure**
-   Copy `.env.example` to `.env` and set `MONGODB_URI`, `JWT_SECRET`, `NEXT_PUBLIC_API_URL`.
-4. **Seed the database**
-   ```bash
-   pnpm run seed
-   ```
-5. **Run development server**
-   ```bash
-   pnpm dev
-   ```
-   The app will be available at `http://localhost:3000`.
-
-## Scripts
-- `pnpm dev` – Start both backend API and frontend dev server (via turborepo).
-- `pnpm build` – Production build.
-- `pnpm start` – Run built app.
-- `pnpm seed` – Populate MongoDB with shifts, teachers, subjects, rooms, timetable, and sample users.
-- `pnpm lint` – Lint & format code.
-- `pnpm test` – Run unit & integration tests.
-
-## Contributing
-1. Fork the repo.
-2. Create a feature branch (`git checkout -b feat/xyz`).
-3. Follow existing linting & testing scripts.
-4. Submit a PR with description and screenshots (if UI changes).
-
----
-*Developed by **Aliyan Ansari** (DAE CIT 3rd Year) – Government College of Technology, Bhakkar.*
-### Government College of Technology (GCT), Bhakkar
-**Session**: Self Finance (2026-27) | **Shift**: Afternoon Shift (12:10 PM - 05:20 PM)
-**Designed & Developed by**: Aliyan Ansari (DAE CIT 3rd Year Student)
+- **Session**: Self Finance (2026–27)
+- **Shift**: Afternoon Shift (12:10 PM – 05:20 PM)
+- **Revised**: Effective w.e.f 14-09-2026
+- **Designed & Developed by**: Aliyan Ansari (DAE CIT 3rd Year)
 
 ---
 
-## 🌟 Production System Features
+## 🌟 Core Features & Business Logic Preserved
 
-1. **Self Finance Afternoon Shift Timings (12:10 PM - 05:20 PM)**:
-   - 8 daily periods + Break/Prayer slot formatted specifically for 12:10 PM to 05:20 PM.
+1. **Mandatory Authentication Gateway**:
+   - **Student Access**: Roll number validation with year auto-detection (`26-CIT` → 1st Year, `25-CIT` → 2nd Year, `24-CIT` → 3rd Year) and shorthand completion (e.g. `105` → `26-CIT-105`).
+   - **HOD / Faculty Portal**: Dedicated administrative portal for Department Head and Teaching Staff.
+   - Persistent user sessions and profile badge in header.
 
-2. **Real-Time Live Lecture Cell Highlighting**:
-   - The ongoing class period cell in the active timetable grid dynamically glows with an animated pulse border, status pill (`LIVE`), and countdown tracker matching the system clock!
+2. **Live Active Period Tracker**:
+   - Real-time time synchronization with Pakistan Standard Time (`Asia/Karachi`).
+   - Period-specific progress bar indicator (0–100%).
+   - Automatic handling of Jumma Prayer timing on Friday (11:10 AM start with extended 1:10 PM – 2:00 PM Jumma break) and 1st Year shifted schedule (11:30 AM start).
+   - Live glowing card indicator with `LIVE` satellite pulse.
 
-3. **Server-Side Conflict Engine & Toast Alerts**:
-   - Blocks double booking attempts for teachers or labs across different year levels and displays an inline toast notification error.
+3. **Timetable Matrix & Conflict Detection**:
+   - Multi-year switching (1st Year, 2nd Year, 3rd Year).
+   - Interactive schedule with theory vs practical badges.
+   - Conflict detection blocking clashing room or teacher allocations across sections.
+   - Official signature block (Time Table Incharge, HOD CIT, Academic Incharge).
 
-4. **Role Enforcement & Security**:
-   - **Student**: Read-only, search, personal calendar export.
-   - **Faculty**: Workload analytics, substitution workflow.
-   - **Admin/HOD**: Full CRUD, versioning, audit logs, database snapshot export.
+4. **Faculty Workload & Lab Utilization Views**:
+   - Faculty view tracking assigned periods per week and overload alerts (>20 periods/week).
+   - Lab usage tracking across Computer Lab-1, Software Lab, Autocad Lab, Applied Electronics Lab, etc.
 
-5. **Personal Calendar Exporter (`.ics`)**:
-   - Export your personal timetable schedule directly to Apple Calendar, Google Calendar, or Outlook (`.ics` format).
+5. **HOD Operations Platform**:
+   - Constraint-satisfaction automated draft timetable generator.
+   - Dynamic 15-minute rotating QR code attendance generator.
+   - Accreditation CSV export for PBTE & DAE quality audits.
+   - Smart substitution engine recommending available faculty members based on specialization and workload.
+   - Timetable reset to official w.e.f 14-09-2026 revision.
+
+6. **Calendar & PDF Export**:
+   - RFC-5545 `.ics` iCalendar subscription export.
+   - Print-optimized PDF timetable layout.
+   - Instant search filter with `⌘K` / `Ctrl+K` shortcut.
 
 ---
 
-## 🚀 Quick Launch Instructions
+## 🚀 Tech Stack
 
-### Option A: Open Directly in Web Browser (Instant)
-👉 **[file:///d:/Time%20Management%20System/index.html](file:///d:/Time%20Management%20System/index.html)**
+- **Framework**: React 19 + TypeScript + Vite
+- **Styling**: Premium GCT Bhakkar Glassmorphism Design System (CSS tokens, dark/light theme)
+- **Icons & Typography**: FontAwesome 6, Plus Jakarta Sans, Inter, JetBrains Mono
 
-### Option B: Run Full-Stack Express + MongoDB Server
+---
+
+## 💻 Development
+
 ```bash
-cd "D:\Time Management System"
-node server.js
+# Start development server
+npm run dev
+
+# Build production bundle
+npm run build
 ```
-Open browser at: `http://localhost:5000`
-
----
-
-## 🧪 Run Automated Conflict Engine Unit Tests
